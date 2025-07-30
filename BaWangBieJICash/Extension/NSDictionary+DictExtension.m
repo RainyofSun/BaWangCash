@@ -18,4 +18,13 @@
     return [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
+- (void)removeNullValue
+{
+    for (NSString *key in self.allKeys) {
+        if ([self[key] isKindOfClass:NSNull.class]) {
+            [self setValue:@"" forKey:key];
+        }
+    }
+}
+
 @end

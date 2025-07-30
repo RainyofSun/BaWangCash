@@ -93,7 +93,11 @@
 - (NSString *)getCuurentDNS
 {
     if (self.cuurentDNSModel == nil) {
-        return @"https://pcm.versara-lending.com/resort";
+#ifdef DEBUG
+        return @"http://47.236.132.190/resort";
+#else
+        return @"http://47.236.132.190/resort";
+#endif
     }
     return [self.cuurentDNSModel.pc substringWithRange:NSMakeRange(0, self.cuurentDNSModel.pc.length-1)];
 }

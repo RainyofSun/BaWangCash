@@ -73,9 +73,13 @@
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import <LYEmptyView/LYEmptyViewHeader.h>
 #import <YYKit/YYKit.h>
+#import <XYUUID/XYUUID.h>
+#import <JXCategoryView/JXCategoryView.h>
+#import "UIApplication+ACAutoCode.h"
 
 #define kTabbarHeight           (kScreenHeight >= 812.0 ? 83 : 49)
 #define kNavigationBarHeight    (kScreenHeight >= 812.0 ? 88 : 64)
+#define kStatusBarHeight                        ([UIApplication.sharedApplication getStatusBarHeight])
 
 #import "AC_Define.h"
 #import "AC_RunTimeTool.h"
@@ -86,6 +90,10 @@
 #import "UIViewController+ACAutoCode.h"
 #import "UIView+ACAutoCode.h"
 #import "AC_BaseButton.h"
+#import "UIView+FirstResponder.h"
+#import "ProgressHud.h"
+#import "UIButton+ACAutoCode.h"
+#import "NSArray+ACAutoCode.h"
 
 #import <AFNetworking/AFNetworking.h>
 #import "AC_Define.h"
@@ -93,5 +101,10 @@
 #import "NSDictionary+DictExtension.h"
 #import "UIImage+Crop.h"
 #import "NSObject+RunTime.h"
+#import "NetMonitorTool.h"
+#import "PositionTool.h"
+#import "AC_BaseView.h"
+#import "APPLogTool.h"
+#import "JumpTool.h"
 
 #endif /* PrefixHeader_pch */

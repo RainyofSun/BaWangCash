@@ -26,11 +26,6 @@
 
 #pragma mark - Base value
 
-#define kScreenSize                             [UIScreen mainScreen].bounds.size
-
-#define kScreenWidth                            kScreenSize.width
-#define kScreenHeight                           kScreenSize.height
-
 #define kNavigationBarHeight                    (kScreenHeight >= 812.0 ? 88 : 64)
 #define kStatusBarHeight                        ([UIApplication.sharedApplication getStatusBarHeight])
 

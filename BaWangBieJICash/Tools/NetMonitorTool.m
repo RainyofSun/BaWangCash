@@ -13,6 +13,8 @@
 #import <net/if.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "NetMonitorTool+DNS.h"
+#import "LoginPresent.h"
+#import "LoginLogic.h"
 
 @interface NetMonitorTool()
 
@@ -236,7 +238,7 @@
             break;
             
         case -2:{
-            PC_LoginPrensnt *view = [PC_LoginPrensnt new];
+            LoginPresent *view = [LoginPresent new];
             [view show];
         }
             return false;
@@ -285,13 +287,13 @@
 - (NSMutableDictionary *)head
 {
     NSDictionary *dict = @{
-        @"quite":[PC_LoginTool.tool.loginModel.pc_quite isExist] ? PC_LoginTool.tool.loginModel.pc_quite : @"",
+        @"quite":[LoginLogic.tool.loginModel.pc_quite isExist] ? LoginLogic.tool.loginModel.pc_quite : @"",
         @"conclusion":[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],
         @"shocked":UIDevice.currentDevice.name,
         @"sloane":[XYUUID uuidForIDFV],
         @"rick":UIDevice.currentDevice.systemVersion,
         @"squirm":[XYUUID uuidForIDFA],
-        @"allers": PC_LoginTool.tool.loginConfig == nil ? @"0" : FORMAT(@"%ld",PC_LoginTool.tool.loginConfig.pc_allers)
+        @"allers": LoginLogic.tool.loginConfig == nil ? @"0" : FORMAT(@"%ld",LoginLogic.tool.loginConfig.pc_allers)
     };
     
     return [[NSMutableDictionary alloc]initWithDictionary:dict];
