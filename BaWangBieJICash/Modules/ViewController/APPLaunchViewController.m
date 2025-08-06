@@ -49,11 +49,11 @@
         make.bottom.equalTo(@((kBottomHeight+56)*-1));
     }];
     
-    [LoginLogic.tool getLoginConfigWithCompleteBlock:^(_Bool succ) {
-        
-    }];
-
-    [PositionTool.tool startUpdatingLocation];
+//    [LoginLogic.tool getLoginConfigWithCompleteBlock:^(_Bool succ) {
+//        
+//    }];
+//
+//    [PositionTool.tool startUpdatingLocation];
 }
 
 - (void)checkNormalDNS
@@ -80,7 +80,8 @@
         }
         PCLog(@"不需要切换动态域名");
         [ProgressHud hiddenLoading];
-        [self getLoginConfig];
+//        [self getLoginConfig];
+        self.retryBtn.hidden = false;
     }];
     
     [APPLogTool.tool reportDeviceIDsWithCompletion:^(BOOL success) {
@@ -126,7 +127,7 @@
 
 - (void)jumpToGuide
 {
-    NSNumber *needJumpGuide = [UserDefaultsObj objectForKey:@"com.acery.needJumpGuide"];
+    NSNumber *needJumpGuide = [UserDefaultsObj objectForKey:@"needJumpGuide"];
     if (needJumpGuide != nil && needJumpGuide.boolValue) {
       
         BaseTabViewController *tabVC = [BaseTabViewController new];
