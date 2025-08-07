@@ -7,11 +7,13 @@
 
 #import "HomePageSmallTableViewCell.h"
 #import "HomePageCommentModel.h"
+#import "HomeSmallApplyButton.h"
 
 @interface HomePageSmallTableViewCell ()
 
+@property (nonatomic, strong) UIImageView *bgView;
 @property (nonatomic, strong) AC_BaseView *cellView;
-@property (nonatomic, strong) AC_BaseButton *applyBtn;
+@property (nonatomic, strong) HomeSmallApplyButton *applyBtn;
 
 @property (nonatomic, strong) UILabel *nameLab;
 @property (nonatomic, strong) UILabel *priceLab;
@@ -41,6 +43,11 @@
     [super setUpSubView];
     
     [self.contentView addSubview:self.cellView];
+    [self.cellView insertSubview:self.bgView atIndex:0];
+    [self.cellView addSubview:self.termLabel];
+    [self.cellView addSubview:self.applyBtn];
+    [self.cellView addSubview:self.rateLabel];
+    
     [self.cellView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@16);
         make.right.equalTo(@-16);
@@ -48,29 +55,35 @@
         make.bottom.equalTo(@0).priorityLow();
     }];
     
-    [self.cellView addSubview:self.applyBtn];
+    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.cellView);
+    }];
+    
     [self.applyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@-16);
         make.top.equalTo(@22);
-        make.height.equalTo(@34);
-        make.width.equalTo(@85);
     }];
     
+    [self.termtitle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.termLabel.mas_left).offset(-16);
+        make.centerY.equalTo(self.priceLab);
+        make.size.equalTo(@6);
+    }];
     
-    [self.cellView addSubview:self.termLabel];
     [self.termLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.termtitle.mas_right).offset(4);
-        make.top.equalTo(@87);
-        make.height.equalTo(@14);
-        make.bottom.equalTo(@-14);
+        make.right.equalTo(self.ratetitle.mas_left).offset(-16);
+        make.centerY.equalTo(self.termtitle);
     }];
     
-    [self.cellView addSubview:self.rateLabel];
+    [self.ratetitle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.rateLabel.mas_left).offset(-16);
+        make.centerY.equalTo(self.termLabel);
+        make.size.equalTo(@6);
+    }];
+    
     [self.rateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.ratetitle.mas_right).offset(4);
-        make.top.equalTo(@87);
-        make.height.equalTo(@14);
-        make.bottom.equalTo(@-14);
+        make.right.equalTo(self.cellView).offset(-16);
+        make.centerY.equalTo(self.ratetitle);
     }];
     
     [self.contentView addTarget:self action:@selector(jumpCall)];
@@ -83,7 +96,7 @@
     
     self.nameLab.text = homeModel.pc_instruct;
     self.priceLab.text = homeModel.pc_longer;
-    [self.applyBtn setTitle:homeModel.pc_conflicts forState:UIControlStateNormal];
+    self.applyBtn.titleLab.text = homeModel.pc_conflicts;
     self.termtitle.text = homeModel.pc_boxed;
     self.ratetitle.text = homeModel.pc_gila;
    
@@ -119,14 +132,18 @@
 }
 
 #pragma mark - init
-
+- (UIImageView *)bgView {
+    if (!_bgView) {
+        _bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"small_cell_bg"]];
+    }
+    
+    return _bgView;
+}
 
 - (AC_BaseView *)cellView
 {
     if (_cellView == nil) {
         _cellView = [AC_BaseView new];
-        [_cellView setCornerRadius:14];
-        _cellView.backgroundColor = HEXCOLOR(@"#FFFFFF");
         [_cellView makeShadowWithColor:[HEXCOLOR(@"#595959") colorWithAlphaComponent:0.04] opacity:8 radius:2 offset:CGSizeMake(0, 0)];
         
         ImgViewWithName(iconImg, @"");
@@ -148,46 +165,45 @@
             make.top.equalTo(@17);
         }];
         
+        UILabel *amountLab = [UILabel LabelWithFont:Regular(12) TextColor:@"#858585" Text:@"Loan amount"];
+        [_cellView addSubview:amountLab];
+        [amountLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@20);
+            make.top.equalTo(iconImg.mas_bottom).offset(8);
+        }];
         
         UILabel *priceLab = [UILabel LabelWithFont:Bold(25) TextColor:@"#333333" Text:@""];
         self.priceLab = priceLab;
         [_cellView addSubview:priceLab];
         [priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@20);
-            make.top.equalTo(iconImg.mas_bottom).offset(8);
+            make.left.equalTo(amountLab);
+            make.top.equalTo(amountLab.mas_bottom).offset(8);
+            make.bottom.equalTo(@-14);
         }];
         
         UILabel *termLab = [UILabel LabelWithFont:Regular(12) TextColor:@"#777DA3" Text:@""];
+        [termLab setCornerRadius:3];
+        termLab.backgroundColor = MAIN_COLOR;
+        
         self.termtitle = termLab;
         [_cellView addSubview:termLab];
-        [termLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@20);
-            make.top.equalTo(priceLab.mas_bottom).offset(16);
-            make.height.equalTo(@12);
-            make.bottom.equalTo(@-14);
-        }];
         
         UILabel *rateLab = [UILabel LabelWithFont:Regular(12) TextColor:@"#777DA3" Text:@""];
+        [rateLab setCornerRadius:3];
+        rateLab.backgroundColor = MAIN_COLOR;
+        
         self.ratetitle = rateLab;
         [_cellView addSubview:rateLab];
-        [rateLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@(kScreenWidth / 2));
-            make.top.equalTo(priceLab.mas_bottom).offset(16);
-            make.height.equalTo(@12);
-            make.bottom.equalTo(@-14);
-        }];
         
         
     }
     return _cellView;
 }
 
-- (AC_BaseButton *)applyBtn
+- (HomeSmallApplyButton *)applyBtn
 {
     if (_applyBtn == nil) {
-        _applyBtn = [AC_BaseButton TextBtnWithTitle:@"" titleColor:@"#FFFFFF" font:Semibold(16)];
-        [_applyBtn setBackgroundImage:IMAGE(@"home_apply_small") forState:UIControlStateNormal];
-        
+        _applyBtn = [[HomeSmallApplyButton alloc] initWithFrame:CGRectZero];
     }
     return _applyBtn;
 }

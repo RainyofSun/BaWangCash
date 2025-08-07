@@ -35,7 +35,7 @@
     self.tableView.backgroundColor = UIColor.clearColor;
     [self addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topImgView.mas_bottom);
+        make.top.equalTo(self.topImgView.mas_bottom).offset(10);
         make.left.right.equalTo(@0);
         make.bottom.equalTo(@0);
     }];
