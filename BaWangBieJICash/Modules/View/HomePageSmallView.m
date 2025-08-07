@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic , strong) UILabel *titleLabel;
+@property (nonatomic , strong) UIImageView *topImgView;
 
 @property (nonatomic, strong) NSArray *productNum;
 
@@ -24,13 +24,10 @@
 {
     [super setUpSubView];
     
-    [self addSubview:self.titleLabel];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@0);
-        make.left.equalTo(@16);
-        make.height.equalTo(@20);
+    [self addSubview:self.topImgView];
+    [self.topImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.centerX.mas_equalTo(self);
     }];
-    
     
     self.tableView.showsVerticalScrollIndicator = false;
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -38,7 +35,7 @@
     self.tableView.backgroundColor = UIColor.clearColor;
     [self addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleLabel.mas_bottom);
+        make.top.equalTo(self.topImgView.mas_bottom);
         make.left.right.equalTo(@0);
         make.bottom.equalTo(@0);
     }];
@@ -55,7 +52,7 @@
     }
     
     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleLabel.mas_bottom);
+        make.top.equalTo(self.topImgView.mas_bottom);
         make.left.right.equalTo(@0);
         make.height.equalTo(@(129*self.productNum.count));
         make.bottom.equalTo(@0);
@@ -100,12 +97,12 @@
     return _tableView;
 }
 
-- (UILabel *)titleLabel
-{
-    if (_titleLabel == nil) {
-        _titleLabel = [UILabel LabelWithFont:Bold(18) TextColor:@"#FFFFFF" Text:@"Loan Supermarket"];
+- (UIImageView *)topImgView {
+    if (!_topImgView) {
+        _topImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_small_tip"]];
     }
-    return _titleLabel;
+    
+    return _topImgView;
 }
 
 @end

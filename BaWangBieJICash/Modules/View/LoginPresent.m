@@ -8,6 +8,7 @@
 #import "LoginPresent.h"
 #import "LoginLogic.h"
 #import "JumpTool.h"
+#import "CustomTextFiled.h"
 
 @interface LoginPresent ()<UITextFieldDelegate>
 
@@ -15,9 +16,9 @@
 
 @property (nonatomic ,strong) UIImageView *bkImg;
 
-@property (nonatomic, strong) UITextField *phoneTextField;
+@property (nonatomic, strong) CustomTextFiled *phoneTextField;
 
-@property (nonatomic, strong) UITextField *codeTextField;
+@property (nonatomic, strong) CustomTextFiled *codeTextField;
 
 @property (nonatomic, strong) AC_BaseButton *getCodeBtn;
 
@@ -45,6 +46,9 @@
 {
     [super setUpSubView];
     
+    [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self);
+    }];
     
     [self.contentView addSubview:self.bkImg];
     [self.bkImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -57,17 +61,15 @@
     }
     
     self.isAgree = true;
-    
-    [self addKeyboardAutoOffset];
 }
 
 - (void)setIsAgree:(bool)isAgree
 {
     _isAgree = isAgree;
     if (isAgree){
-        self.agreementImg.image = IMAGE(@"Credito_Pesos_gouxuan");
+        self.agreementImg.image = IMAGE(@"login_chose_yes");
     }else{
-        self.agreementImg.image = IMAGE(@"login_choose_disable");
+        self.agreementImg.image = IMAGE(@"login_chose_no");
     }
 }
 
@@ -84,8 +86,10 @@
     self.getCodeBtn.enabled = cuurentCodeExpiry <= 0;
     
     if (cuurentCodeExpiry <= 0) {
+        [self.getCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.getCodeBtn setTitle:@"Get code" forState:UIControlStateNormal];
     }else {
+        [self.getCodeBtn setTitleColor:[UIColor colorWithHexString:@"#4497F5"] forState:UIControlStateNormal];
         NSString *title = FORMAT(@"%lds",cuurentCodeExpiry);
         [self.getCodeBtn setTitle:title forState:UIControlStateNormal];
     }
@@ -177,6 +181,19 @@
 {
     return YES;
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if (textField == self.codeTextField) {
+        
+    }
+    NSInteger maxLength = textField == self.codeTextField ? 6 : 20;
+    NSString *currentText = textField.text ?: @"";
+    NSString *newText = [currentText stringByReplacingCharactersInRange:range withString:string];
+    
+    return newText.length <= maxLength;
+}
+
 // 发送验证码，成功后光标会自动定
 - (void)sendVerificationCode {
     // 发送验证码的代码
@@ -195,189 +212,132 @@
         _bkImg = [[UIImageView alloc]initWithImage:IMAGE(@"login_bk")];
         _bkImg.userInteractionEnabled = true;
         
-        ImgViewWithName(login_close, @"login_close");
-        login_close.userInteractionEnabled = YES;
-        [_bkImg addSubview:login_close];
-        [login_close mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@97);
-            make.right.equalTo(@-18);
-            make.height.width.equalTo(@15);
-        }];
-        
         AC_BaseButton *closeBtn = [AC_BaseButton buttonWithType:UIButtonTypeCustom];
+        [closeBtn setImage:[UIImage imageNamed:@"login_close"] forState:UIControlStateNormal];
+        
         [closeBtn addTarget:self action:@selector(disMiss) forControlEvents:UIControlEventTouchUpInside];
-        [login_close addSubview:closeBtn];
+        [_bkImg addSubview:closeBtn];
         [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@-10);
-            make.right.equalTo(@10);
+            make.top.mas_equalTo(kStatusBarHeight);
+            make.left.equalTo(@16);
             make.height.width.equalTo(@30);
         }];
         
         
-        UILabel *phoneNum = [UILabel LabelWithFont:Regular(16) TextColor:@"#FFFFFF" Text:@"Phone number"];
-        [_bkImg addSubview:phoneNum];
-        [phoneNum mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(login_close.mas_bottom).offset(20);
-            make.left.equalTo(@20);
-            make.height.equalTo(@24);
+        UIImageView *cardView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_card"]];
+        cardView.userInteractionEnabled = YES;
+        [_bkImg addSubview:cardView];
+        
+        [cardView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(closeBtn.mas_bottom).offset(kScreenHeight * 0.2);
+            make.centerX.mas_equalTo(_bkImg);
         }];
         
-        ImgViewWithName(numView, @"login_white");
-        numView.userInteractionEnabled = YES;
-        [_bkImg addSubview:numView];
-        [numView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(phoneNum.mas_bottom).offset(8);
-            make.left.equalTo(@20);
-            make.height.equalTo(@55);
-            make.right.equalTo(@-20);
-        }];
-        
-        UIImageView *nationIcon = [[UIImageView alloc]init];
-        [nationIcon sd_setImageWithURL:[NSURL URLWithString:LoginLogic.tool.loginConfig.pc_commenting.pc_timon]];
-        [numView addSubview:nationIcon];
-        [nationIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(@0);
-            make.left.equalTo(@20);
-            make.height.equalTo(@20);
-            make.width.equalTo(@30);
-        }];
-        
-        UILabel *countryCode = [UILabel LabelWithFont:Regular(16) TextColor:@"#000000" Text:LoginLogic.tool.loginConfig.pc_commenting.pc_pumbaa];
-        [numView addSubview:countryCode];
-        [countryCode mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(@0);
-            make.left.equalTo(nationIcon.mas_right).offset(12);
-            make.height.equalTo(@22);
-        }];
-        
-        AC_BaseView *vLine = [AC_BaseView new];
-        vLine.backgroundColor = HEXCOLOR(@"#E0D5FF");
-        [numView addSubview:vLine];
-        [vLine mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(@0);
-            make.left.equalTo(countryCode.mas_right).offset(10);
-            make.height.equalTo(@19);
-            make.width.equalTo(@1);
-        }];
-        
-        [numView addSubview:self.phoneTextField];
+        [cardView addSubview:self.phoneTextField];
         [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(@0);
-            make.left.equalTo(vLine.mas_right).offset(7);
-            make.width.equalTo(@218);
-            make.height.equalTo(@40);
+            make.left.mas_equalTo(cardView.mas_left).offset(25);
+            make.right.mas_equalTo(cardView.mas_right).offset(-25);
+            make.top.mas_equalTo(cardView.mas_top).offset(64);
+            make.height.equalTo(@52);
         }];
         
-        UILabel *verCode = [UILabel LabelWithFont:Regular(16) TextColor:@"#FFFFFF" Text:@"Verification Code"];
-        [_bkImg addSubview:verCode];
-        [verCode mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(numView.mas_bottom).offset(17);
-            make.left.equalTo(@20);
-            make.height.equalTo(@24);
-        }];
-        
-        ImgViewWithName(codeView, @"login_white");
-        codeView.userInteractionEnabled = YES;
-        [_bkImg addSubview:codeView];
-        [codeView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(verCode.mas_bottom).offset(8);
-            make.left.equalTo(@20);
-            make.height.equalTo(@55);
-            make.right.equalTo(@-20);
-        }];
-        
-        [codeView addSubview:self.codeTextField];
+        [cardView addSubview:self.codeTextField];
         [self.codeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(@0);
-            make.left.equalTo(@16);
-            make.width.equalTo(@218);
-            make.height.equalTo(@40);
+            make.top.mas_equalTo(self.phoneTextField.mas_bottom).offset(20);
+            make.left.width.height.equalTo(self.phoneTextField);
         }];
         
-        [codeView addSubview:self.getCodeBtn];
-        [self.getCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(@0);
-            make.right.equalTo(@-24);
-            make.height.equalTo(@22);
-        }];
-        
-        
-        AC_BaseButton *tipBtn = [AC_BaseButton TextBtnWithTitle:@"Voice Verifcation Code?" titleColor:@"#FFFFFF" font:Regular(13)];
+        AC_BaseButton *tipBtn = [AC_BaseButton ImageBtnWithImgName:@"login_voice"];
         [tipBtn addTarget:self action:@selector(voiceCodeCall) forControlEvents:UIControlEventTouchUpInside];
-        [_bkImg addSubview:tipBtn];
+        [cardView addSubview:tipBtn];
         [tipBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(codeView.mas_bottom).offset(27);
-            make.right.equalTo(@-20);
-            make.height.equalTo(@18);
+            make.top.equalTo(self.codeTextField.mas_bottom).offset(27);
+            make.centerX.equalTo(cardView);
+        }];
+        
+        [cardView addSubview:self.signBtn];
+        [self.signBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@32);
+            make.right.equalTo(@-32);
+            make.height.equalTo(@54);
+            make.top.equalTo(tipBtn.mas_bottom).offset(85);
         }];
         
         [_bkImg addSubview:self.agreementImg];
         [self.agreementImg mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(tipBtn.mas_bottom).offset(45);
+            make.top.equalTo(cardView.mas_bottom).offset(80);
             make.left.equalTo(@40);
             make.height.width.equalTo(@20);
         }];
         
-        UILabel *readLab = [UILabel LabelWithFont:Regular(14) TextColor:@"#FFFFFF" Text:@"I have read and agree"];
+        UILabel *readLab = [UILabel LabelWithFont:Regular(13) TextColor:@"#717171" Text:@"I have read and agree"];
         [self.bkImg addSubview:readLab];
         [readLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(tipBtn.mas_bottom).offset(44);
-            make.left.equalTo(self.agreementImg.mas_right).offset(1);
+            make.centerY.equalTo(self.agreementImg);
+            make.left.equalTo(self.agreementImg.mas_right).offset(10);
             make.height.equalTo(@22);
         }];
         
-        ImgViewWithName(loanAgreement, @"privacy_Agreement");
-        loanAgreement.contentMode = UIViewContentModeScaleAspectFit;
-        loanAgreement.userInteractionEnabled = YES;
-        [loanAgreement addTarget:self action:@selector(agreementClick)];
-        [self.bkImg addSubview:loanAgreement];
-        [loanAgreement mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(readLab.mas_right).offset(4);
-            make.top.equalTo(tipBtn.mas_bottom).offset(45);
-            make.height.equalTo(@20);
-            make.width.equalTo(@125);
-        }];
+        UIButton *privateLab = [UIButton TextBtnWithTitle:@"<Privacy Agreement>" titleColor:@"#9471F3" font:Regular(13)];
+        [privateLab addTarget:self action:@selector(agreementClick) forControlEvents:UIControlEventTouchUpInside];
         
-        [self.bkImg addSubview:self.signBtn];
-        [self.signBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@32);
-            make.right.equalTo(@-32);
-            make.height.equalTo(@53);
-            make.top.equalTo(codeView.mas_bottom).offset(119);
+        [_bkImg addSubview:privateLab];
+        [privateLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(readLab.mas_right).offset(4);
+            make.centerY.equalTo(readLab);
+            make.height.equalTo(@20);
+            make.width.greaterThanOrEqualTo(@125);
         }];
         
     }
     return _bkImg;
 }
 
-- (UITextField *)phoneTextField
+- (CustomTextFiled *)phoneTextField
 {
     if (_phoneTextField == nil) {
-        _phoneTextField = [UITextField new];
+        _phoneTextField = [CustomTextFiled new];
         _phoneTextField.leftViewMode = UITextFieldViewModeAlways;
         _phoneTextField.textColor = HEXCOLOR(@"#000000");
-        _phoneTextField.font = Regular(14);
+        _phoneTextField.font = Regular(16);
         _phoneTextField.keyboardType = UIKeyboardTypePhonePad;
         _phoneTextField.delegate = self;
+        _phoneTextField.backgroundColor = [UIColor colorWithHexString:@"#F9F5FD"];
+        _phoneTextField.layer.cornerRadius = 12;
+        _phoneTextField.clipsToBounds = YES;
         
-        NSDictionary *attr = @{NSFontAttributeName:Regular(14),NSForegroundColorAttributeName:HEXCOLOR(@"#727272")};
+        NSDictionary *attr = @{NSFontAttributeName:Regular(16),NSForegroundColorAttributeName:HEXCOLOR(@"#727272")};
         NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:@"Enter verification code" attributes:attr];
         _phoneTextField.attributedPlaceholder = attrStr;
+        
+        UILabel *countryCode = [UILabel LabelWithFont:Regular(16) TextColor:@"#000000" Text:[NSString stringWithFormat:@"+%@", LoginLogic.tool.loginConfig.pc_commenting.pc_pumbaa]];
+        countryCode.frame = CGRectMake(0, 0, 30, 30);
+        _phoneTextField.leftView = countryCode;
+        _phoneTextField.leftViewMode = UITextFieldViewModeAlways;
     }
     return _phoneTextField;
 }
 
-- (UITextField *)codeTextField
+- (CustomTextFiled *)codeTextField
 {
     if (_codeTextField == nil) {
-        _codeTextField = [UITextField new];
+        _codeTextField = [CustomTextFiled new];
         _codeTextField.textColor = HEXCOLOR(@"#000000");
-        _codeTextField.font = Regular(14);
+        _codeTextField.font = Regular(16);
         _codeTextField.keyboardType = UIKeyboardTypePhonePad;
         _codeTextField.delegate = self;
-        NSDictionary *attr = @{NSFontAttributeName:Regular(14),NSForegroundColorAttributeName:HEXCOLOR(@"#727272")};
+        _codeTextField.backgroundColor = [UIColor colorWithHexString:@"#F9F5FD"];
+        _codeTextField.layer.cornerRadius = 12;
+        _codeTextField.clipsToBounds = YES;
+        
+        NSDictionary *attr = @{NSFontAttributeName:Regular(16),NSForegroundColorAttributeName:HEXCOLOR(@"#727272")};
         NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:@"Enter verification code" attributes:attr];
         _codeTextField.attributedPlaceholder = attrStr;
+        
+        self.getCodeBtn.frame = CGRectMake(0, 0, 80, 62);
+        _codeTextField.rightView = self.getCodeBtn;
+        _codeTextField.rightViewMode = UITextFieldViewModeAlways;
+        
     }
     return _codeTextField;
 }
@@ -385,7 +345,10 @@
 - (AC_BaseButton *)getCodeBtn
 {
     if (_getCodeBtn == nil) {
-        _getCodeBtn = [AC_BaseButton TextBtnWithTitle:@"Get code" titleColor:@"#4497F5" font:Semibold(16)];
+        _getCodeBtn = [AC_BaseButton TextBtnWithTitle:@"Get code" titleColor:@"#FFFFFF" font:Semibold(16)];
+        _getCodeBtn.backgroundColor = MAIN_COLOR;
+        _getCodeBtn.layer.cornerRadius = 10;
+        _getCodeBtn.clipsToBounds = YES;
         [_getCodeBtn addTarget:self action:@selector(getCodeClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _getCodeBtn;
@@ -394,8 +357,11 @@
 - (AC_BaseButton *)signBtn
 {
     if (_signBtn == nil) {
-        _signBtn = [AC_BaseButton TextBtnWithTitle:@"Sign in" titleColor:@"#000000" font:Semibold(18)];
-        [_signBtn setBackgroundImage:IMAGE(@"login_sign_bk") forState:UIControlStateNormal];
+        _signBtn = [AC_BaseButton TextBtnWithTitle:@"Login" titleColor:@"#FFFFFF" font:Semibold(18)];
+        _signBtn.backgroundColor = MAIN_COLOR;
+        _signBtn.layer.cornerRadius = 27;
+        _signBtn.clipsToBounds = YES;
+        
         [_signBtn addTarget:self action:@selector(signClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _signBtn;

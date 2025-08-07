@@ -31,6 +31,11 @@
 
 @implementation HomePageSmallTableViewCell
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+}
+
 - (void)setUpSubView
 {
     [super setUpSubView];
@@ -125,6 +130,8 @@
         [_cellView makeShadowWithColor:[HEXCOLOR(@"#595959") colorWithAlphaComponent:0.04] opacity:8 radius:2 offset:CGSizeMake(0, 0)];
         
         ImgViewWithName(iconImg, @"");
+        iconImg.layer.cornerRadius = 4;
+        iconImg.clipsToBounds = YES;
         self.iconImg = iconImg;
         [_cellView addSubview:iconImg];
         [iconImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -139,7 +146,6 @@
         [pcLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(iconImg.mas_right).offset(6);
             make.top.equalTo(@17);
-            make.height.equalTo(@16);
         }];
         
         
@@ -149,7 +155,6 @@
         [priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(@20);
             make.top.equalTo(iconImg.mas_bottom).offset(8);
-            make.height.equalTo(@25);
         }];
         
         UILabel *termLab = [UILabel LabelWithFont:Regular(12) TextColor:@"#777DA3" Text:@""];

@@ -17,7 +17,7 @@
 {
     [super setUpSubView];
     
-    self.view.backgroundColor = HEXCOLOR(@"#F6F6F6");
+    self.view.backgroundColor = HEXCOLOR(@"#FFFFFF");
     self.navStyle = AC_BaseVC_NAVStyle_White;
     self.vcTitleLabel.font = Medium(16);
     self.vcTitleLabel.textColor = HEXCOLOR(@"#FFFFFF");

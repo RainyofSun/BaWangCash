@@ -5,11 +5,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "top bg@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "首页（大卡）@3x.png",
+      "filename" : "top bg@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

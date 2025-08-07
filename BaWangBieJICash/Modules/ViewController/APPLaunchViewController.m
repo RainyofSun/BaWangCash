@@ -41,6 +41,9 @@
         make.edges.equalTo(@0);
     }];
     
+    [self.retryBtn setBackgroundColor:MAIN_COLOR];
+    [self.retryBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
     [self.view addSubview:self.retryBtn];
     [self.retryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@32);
@@ -49,11 +52,11 @@
         make.bottom.equalTo(@((kBottomHeight+56)*-1));
     }];
     
-//    [LoginLogic.tool getLoginConfigWithCompleteBlock:^(_Bool succ) {
-//        
-//    }];
-//
-//    [PositionTool.tool startUpdatingLocation];
+    [LoginLogic.tool getLoginConfigWithCompleteBlock:^(_Bool succ) {
+        
+    }];
+
+    [PositionTool.tool startUpdatingLocation];
 }
 
 - (void)checkNormalDNS
@@ -80,8 +83,7 @@
         }
         PCLog(@"不需要切换动态域名");
         [ProgressHud hiddenLoading];
-//        [self getLoginConfig];
-        self.retryBtn.hidden = false;
+        [self getLoginConfig];
     }];
     
     [APPLogTool.tool reportDeviceIDsWithCompletion:^(BOOL success) {

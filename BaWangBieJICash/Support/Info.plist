@@ -33,5 +33,10 @@
 		<key>Location</key>
 		<string>The App needs to obtain the accurate location in order to provide more precise services</string>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Alimama ShuHeiTi.ttf</string>
+		<string>AaHouDiHei.ttf</string>
+	</array>
 </dict>
 </plist>
