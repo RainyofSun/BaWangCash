@@ -64,8 +64,8 @@
         make.top.equalTo(lab.mas_bottom).offset(12);
         make.left.equalTo(@18);
         make.right.equalTo(@-18);
-        
     }];
+    
     [contentbk addSubview:self.agreeView];
     [self.agreeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.grayView.mas_bottom).offset(16);
@@ -158,7 +158,6 @@
             make.top.equalTo(twolab.mas_bottom).offset(6);
             make.left.equalTo(@12);
             make.right.equalTo(@-11);
-            make.bottom.greaterThanOrEqualTo(@-14);
         }];
     }
     return _grayView;

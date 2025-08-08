@@ -46,13 +46,19 @@
         make.top.equalTo(lab.mas_bottom).offset(21);
     }];
     
-    
+    UILabel *numlab = [UILabel LabelWithFont:ShuHeiTi(48) TextColor:@"#000000" Text:@"₱ 98,000"];
     ImgViewWithName(loan, @"exit_priceview");
+    [loan addSubview:numlab];
     [contentbk addSubview:loan];
     [loan mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@250);
         make.centerX.equalTo(@0);
         make.top.equalTo(detaillab.mas_bottom).offset(7);
+    }];
+    
+    [numlab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(loan);
+        make.centerY.mas_equalTo(loan).offset(3);
     }];
     
     [contentbk addSubview:self.comfirmBtn];
