@@ -26,7 +26,7 @@
         self.leftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_gold"]];
         self.rightImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"apply_btn_arrow"]];
         self.titleLab = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.titleLab.font = [UIFont fontWithName:@"AaHouDiHei" size:18];
+        self.titleLab.font = ShuHeiTi(18);
         self.titleLab.text = @"Apply Now";
         
         [self addSubview:self.leftImageView];

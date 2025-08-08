@@ -6,6 +6,7 @@
 //
 
 #import "OrderTableViewCell.h"
+#import "CustomGradientLabel.h"
 
 @interface OrderTableViewCell ()
 
@@ -15,7 +16,7 @@
 @property (nonatomic ,strong) AC_BaseButton *applyBtn;
 
 /// 标题
-@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) CustomGradientLabel *nameLabel;
 
 /// 底部协议链接
 @property (nonatomic, strong) AC_BaseButton *loanAgreementButton;
@@ -115,6 +116,7 @@
         
         ImgViewWithName(iconImg, @"");
         self.iconImg = iconImg;
+        [iconImg setCornerRadius:4];
         [_cellView addSubview:iconImg];
         [iconImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(@16);
@@ -162,8 +164,8 @@
 {
     if (_applyBtn == nil) {
         _applyBtn = [AC_BaseButton TextBtnWithTitle:@"" titleColor:@"#FFFFFF" font:Semibold(12)];
-        [_applyBtn setBackgroundImage:IMAGE(@"order_apply_btn") forState:UIControlStateNormal];
-        
+        [_applyBtn setCornerRadius:17];
+        _applyBtn.backgroundColor = MAIN_COLOR;
     }
     return _applyBtn;
 }
@@ -176,7 +178,7 @@
         NSRange titleRange = {0,[title length]};
         [title addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:titleRange];
         [_loanAgreementButton setAttributedTitle:title forState:UIControlStateNormal];
-        [_loanAgreementButton setTitleColor:HEXCOLOR(@"#4497F5") forState:UIControlStateNormal];
+        [_loanAgreementButton setTitleColor:HEXCOLOR(@"#9471F3") forState:UIControlStateNormal];
         _loanAgreementButton.titleLabel.font = Semibold(14);
         [_loanAgreementButton addTarget:self action:@selector(loanAgreementButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -194,10 +196,10 @@
     return _infoView;
 }
 
-- (UILabel *)nameLabel
+- (CustomGradientLabel *)nameLabel
 {
     if (_nameLabel == nil) {
-        _nameLabel = [UILabel LabelWithFont:Semibold(16) TextColor:@"#333333" Text:@""];
+        _nameLabel = [CustomGradientLabel LabelWithFont:HouDiHei(16) TextColor:@"#333333" Text:@""];
     }
     return _nameLabel;
 }

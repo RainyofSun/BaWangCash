@@ -49,7 +49,7 @@
 {
     if (_selectBtn == nil) {
         _selectBtn = [AC_BaseButton new];
-        [_selectBtn setBackgroundImage:IMAGE(@"address_icon_done") forState:UIControlStateNormal];
+        [_selectBtn setBackgroundImage:IMAGE(@"login_chose_yes") forState:UIControlStateNormal];
     }
     return _selectBtn;
 }

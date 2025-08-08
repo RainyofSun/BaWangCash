@@ -101,9 +101,9 @@
     if (_comfirmBtn == nil){
         _comfirmBtn = [AC_BaseButton new];
         [_comfirmBtn setCornerRadius:15];
-        _comfirmBtn.backgroundColor = HEXCOLOR(@"#91EF11");
+        _comfirmBtn.backgroundColor = MAIN_COLOR;
         [_comfirmBtn setTitle:@"确认" forState:UIControlStateNormal];
-        [_comfirmBtn setTitleColor:HEXCOLOR(@"#2C2C2C") forState:UIControlStateNormal];
+        [_comfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _comfirmBtn.titleLabel.font = Regular(14);
         [_comfirmBtn addTarget:self action:@selector(comfirmCall) forControlEvents:UIControlEventTouchUpInside];
     }

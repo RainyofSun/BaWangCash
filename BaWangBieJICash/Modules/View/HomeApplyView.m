@@ -92,7 +92,7 @@
 - (UILabel *)priceLab
 {
     if (_priceLab == nil) {
-        _priceLab = [UILabel LabelWithFont:Regular(48) TextColor:@"#FFFFFF" Text:@""];
+        _priceLab = [UILabel LabelWithFont:ShuHeiTi(48) TextColor:@"#FFFFFF" Text:@""];
     }
     return _priceLab;
 }

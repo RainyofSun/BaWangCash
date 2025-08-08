@@ -22,6 +22,8 @@
 {
     [super setUpSubView];
     
+    [self.backBtn setBackgroundImage:IMAGE(@"login_close") forState:UIControlStateNormal];
+    
     [self.view addSubview:self.h5View];
     [self.h5View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(@0);

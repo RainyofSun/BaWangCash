@@ -35,8 +35,8 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Alimama ShuHeiTi.ttf</string>
-		<string>AaHouDiHei.ttf</string>
+		<string>AlimamaShuHeiTi-Bold.ttf</string>
+		<string>Aa厚底黑.ttf</string>
 	</array>
 </dict>
 </plist>

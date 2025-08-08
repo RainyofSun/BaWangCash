@@ -5,11 +5,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "头像@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "me_head备份@3x.png",
+      "filename" : "头像@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

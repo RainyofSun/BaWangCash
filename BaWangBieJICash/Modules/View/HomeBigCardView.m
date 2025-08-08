@@ -7,6 +7,7 @@
 
 #import "HomeBigCardView.h"
 #import "HomeApplyGuideView.h"
+#import "HomeProductView.h"
 
 @interface HomeBigCardView ()
 

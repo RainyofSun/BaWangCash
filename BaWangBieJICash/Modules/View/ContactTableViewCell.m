@@ -219,7 +219,7 @@
 - (UILabel *)title
 {
     if (_title == nil) {
-        _title = [UILabel LabelWithFont:Semibold(16) TextColor:@"#4497F5" Text:@""];
+        _title = [UILabel LabelWithFont:Semibold(16) TextColor:@"#9471F3" Text:@""];
     }
     return _title;
 }

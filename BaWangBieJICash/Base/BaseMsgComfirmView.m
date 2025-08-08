@@ -41,7 +41,7 @@
     self.contentLabel.font = Regular(14);
     
     
-    [self.comfirmBtn setBackgroundImage:IMAGE(@"present_confirm") forState:UIControlStateNormal];
+    [self.comfirmBtn setBackgroundImage:IMAGE(@"next_btn") forState:UIControlStateNormal];
     self.comfirmBtn.backgroundColor = HEXCOLOR(@"#FFFFFF");
     [self.comfirmBtn setTitle:@"OK" forState:UIControlStateNormal];
     self.comfirmBtn.titleLabel.font = Semibold(16);

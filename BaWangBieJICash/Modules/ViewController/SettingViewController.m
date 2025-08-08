@@ -25,13 +25,13 @@
     
     self.title = @"Settings";
 
-    ImgViewWithName(topImg, @"setting_bk_top");
+    ImgViewWithName(topImg, @"bj_img");
     [self.view insertSubview:topImg atIndex:0];
     [topImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(@0);
     }];
     
-    ImgViewWithName(icon, @"setting_logo");
+    ImgViewWithName(icon, @"identity_logo");
     [self.view addSubview:icon];
     [icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.navBar.mas_bottom).offset(32);
@@ -39,7 +39,8 @@
         make.centerX.equalTo(@0);
     }];
     
-    UILabel *pcLab = [UILabel LabelWithFont:Semibold(20) TextColor:@"#000000" Text:@"Power Cash"];
+    NSString *app_Name = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    UILabel *pcLab = [UILabel LabelWithFont:HouDiHei(24) TextColor:@"#000000" Text:app_Name];
     [self.view addSubview:pcLab];
     [pcLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(icon.mas_bottom).offset(12);
@@ -117,7 +118,7 @@
 {
     if (_exitBtn == nil) {
         _exitBtn = [AC_BaseButton TextBtnWithTitle:@"Exit" titleColor:@"#FFFFFF" font:Regular(18)];
-        [_exitBtn setBackgroundImage:IMAGE(@"setting_exit") forState:UIControlStateNormal];
+        [_exitBtn setBackgroundImage:IMAGE(@"next_btn") forState:UIControlStateNormal];
         [_exitBtn addTarget:self action:@selector(exitCall) forControlEvents:UIControlEventTouchUpInside];
     }
     return _exitBtn;
@@ -126,11 +127,11 @@
 - (AC_BaseButton *)accountcancelBtn
 {
     if (_accountcancelBtn == nil) {
-        _accountcancelBtn = [AC_BaseButton TextBtnWithTitle:@"Account cancellation" titleColor:@"#4497F5" font:Regular(18)];
+        _accountcancelBtn = [AC_BaseButton TextBtnWithTitle:@"Account cancellation" titleColor:@"#9471F3" font:Regular(18)];
         [_accountcancelBtn setCornerRadius:30];
         _accountcancelBtn.backgroundColor = HEXCOLOR(@"#FFFFFF");
         _accountcancelBtn.layer.borderWidth = 1;
-        _accountcancelBtn.layer.borderColor = HEXCOLOR(@"#4497F5").CGColor;
+        _accountcancelBtn.layer.borderColor = HEXCOLOR(@"#9471F3").CGColor;
         [_accountcancelBtn addTarget:self action:@selector(accountCancelCall) forControlEvents:UIControlEventTouchUpInside];
     }
     return _accountcancelBtn;

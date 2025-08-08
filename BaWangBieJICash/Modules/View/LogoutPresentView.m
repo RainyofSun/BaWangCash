@@ -27,6 +27,7 @@
 //    self.title = @"Cancel your account";
 //    self.titleLabel.font = Semibold(25);
     
+    self.contentView.backgroundColor = [UIColor clearColor];
     [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@28);
         make.right.equalTo(@-28);
@@ -79,7 +80,7 @@
         make.height.equalTo(@52);
         make.top.equalTo(self.agreeImg.mas_bottom).offset(20);
         make.right.equalTo(@-24);
-        make.bottom.equalTo(@-16);
+        make.bottom.greaterThanOrEqualTo(@-16);
     }];
     
     UIButton *btn = [UIButton ImageBtnWithImgName:@"present_close"];
@@ -109,7 +110,7 @@
 {
     _isAgree = isAgree;
     if (isAgree){
-        self.agreeImg.image = IMAGE(@"Credito_Pesos_xuan_blue");
+        self.agreeImg.image = IMAGE(@"login_chose_yes");
     }else{
         self.agreeImg.image = IMAGE(@"logoff_disable");
     }
@@ -157,7 +158,7 @@
             make.top.equalTo(twolab.mas_bottom).offset(6);
             make.left.equalTo(@12);
             make.right.equalTo(@-11);
-            make.bottom.equalTo(@-14);
+            make.bottom.greaterThanOrEqualTo(@-14);
         }];
     }
     return _grayView;
@@ -204,7 +205,7 @@
 {
     if (_cancelBtn == nil) {
         _cancelBtn = [AC_BaseButton TextBtnWithTitle:@"Account cancellation" titleColor:@"#FFFFFF" font:Semibold(16)];
-            [_cancelBtn setBackgroundImage:IMAGE(@"present_confirm") forState:UIControlStateNormal];
+            [_cancelBtn setBackgroundImage:IMAGE(@"next_btn") forState:UIControlStateNormal];
         [_cancelBtn setTitle:@"Account cancellation" forState:UIControlStateNormal];
         [_cancelBtn addTarget:self action:@selector(comfirmCilck) forControlEvents:UIControlEventTouchUpInside];
     }

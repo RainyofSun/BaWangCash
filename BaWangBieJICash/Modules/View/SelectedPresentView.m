@@ -101,7 +101,7 @@
     
     // 选中状态样式
     if (indexPath.row == self.selectedIndex) {
-        cell.backgroundColor = HEXCOLOR(@"#4497F5");
+        cell.backgroundColor = HEXCOLOR(@"#9471F3");
         cell.textLabel.textColor = HEXCOLOR(@"#FFFFFF");
         cell.textLabel.font = Semibold(16);
     } else {
@@ -164,7 +164,7 @@
 {
     if (_nextBtn == nil) {
         _nextBtn = [AC_BaseButton TextBtnWithTitle:@"Next" titleColor:@"#FFFFFF" font:Semibold(16)];
-        [_nextBtn setBackgroundImage:IMAGE(@"present_confirm") forState:UIControlStateNormal];
+        [_nextBtn setBackgroundImage:IMAGE(@"next_btn") forState:UIControlStateNormal];
   
         [_nextBtn addTarget:self action:@selector(nextBtnCall) forControlEvents:UIControlEventTouchUpInside];
     }

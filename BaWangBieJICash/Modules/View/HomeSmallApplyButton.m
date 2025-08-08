@@ -24,7 +24,7 @@
         
         self.arrowImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"small_cell_arrow"]];
         self.titleLab = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.titleLab.font = Bold(14);
+        self.titleLab.font = ShuHeiTi(14);
         self.titleLab.textColor = [UIColor whiteColor];
         
         [self addSubview:self.titleLab];

@@ -32,6 +32,8 @@
 {
     [super setUpSubView];
 
+    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#F6F6F6"];
+    
     [self.contentView addSubview:self.person_cell];
     [self.person_cell mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@42);

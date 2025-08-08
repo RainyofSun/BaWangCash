@@ -53,7 +53,7 @@
         make.top.equalTo(@24);
     }];
     
-    UILabel *detaillab = [UILabel LabelWithFont:Semibold(13) TextColor:@"#41DE18" Text:@"Select an id to verify your identity"];
+    UILabel *detaillab = [UILabel LabelWithFont:Semibold(13) TextColor:@"#9471F3" Text:@"Select an id to verify your identity"];
     detaillab.numberOfLines = 0;
     detaillab.textAlignment = NSTextAlignmentCenter;
     [contentbk addSubview:detaillab];
@@ -145,7 +145,7 @@
     
     // 选中状态样式
     if (indexPath.row == self.selectedIndex) {
-        cell.backgroundColor = HEXCOLOR(@"#4497F5");
+        cell.backgroundColor = MAIN_COLOR;
         cell.textLabel.textColor = HEXCOLOR(@"#FFFFFF");
         cell.textLabel.font = Semibold(16);
     } else {

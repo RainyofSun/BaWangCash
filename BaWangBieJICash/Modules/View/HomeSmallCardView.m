@@ -11,7 +11,6 @@
 
 @property (nonatomic, strong) UIImageView *bgImgView;
 @property (nonatomic, strong) UIImageView *goldImgView;
-@property (nonatomic, strong) UIImageView *logoImgView;
 
 @end
 
@@ -21,7 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.bgImgView];
-        [self.bgImgView addSubview:self.logoImgView];
+        [self.bgImgView addSubview:self.productView];
         [self.bgImgView addSubview:self.applyView];
         [self.bgImgView addSubview:self.goldImgView];
         [self addSubview:self.smallView];
@@ -30,16 +29,16 @@
             make.top.left.right.mas_equalTo(self);
         }];
         
-        [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.productView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(self);
-            make.top.mas_equalTo(self).offset(kStatusBarHeight + 10);
+            make.top.mas_equalTo(self).offset(kStatusBarHeight + 15);
         }];
         
         [self.applyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self).offset(16);
             make.right.mas_equalTo(self).offset(-16);
             make.height.mas_equalTo((kScreenWidth - 32) * 0.6);
-            make.top.mas_equalTo(self.logoImgView.mas_bottom).offset(20);
+            make.top.mas_equalTo(self.productView.mas_bottom).offset(15);
         }];
         
         [self.goldImgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,12 +71,12 @@
     return _goldImgView;
 }
 
-- (UIImageView *)logoImgView {
-    if (!_logoImgView) {
-        _logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_small_logo"]];
+- (HomeProductView *)productView {
+    if (!_productView) {
+        _productView = [[HomeProductView alloc] initWithFrame:CGRectZero iconSize:CGSizeMake(35, 35)];
     }
     
-    return _logoImgView;
+    return _productView;
 }
 
 - (HomeApplyView *)applyView {

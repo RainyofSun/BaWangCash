@@ -51,6 +51,7 @@
     
     [self.largeView.topSubImg addTarget:self action:@selector(applyClick)];
     [self.largeView.phoneApplyView addTarget:self action:@selector(phoneApplyCall)];
+    [self.smallView.applyView addTarget:self action:@selector(applyClick)];
     
     [Noti_Center addObserver:self selector:@selector(requestHomeData) name:PC_DidLoginSucc_NotiKey object:nil];
     [Noti_Center addObserver:self selector:@selector(getHomeData) name:PC_DidLogoutSucc_NotiKey object:nil];
@@ -132,6 +133,7 @@
         self.smallView.applyView.rateLab.text = consists.pc_collection;
         self.productID = consists.pc_consumers;
         
+        [self.smallView.productView refreshProductTitle:consists.pc_instruct titleSize:23];
         self.smallView.applyView.LoanLab.text = consists.pc_megalon;
         [self.smallView.applyView.applyBtn refreshApplyButtonTitle:consists.pc_conflicts];
     }

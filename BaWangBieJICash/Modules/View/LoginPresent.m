@@ -89,7 +89,7 @@
         [self.getCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.getCodeBtn setTitle:@"Get code" forState:UIControlStateNormal];
     }else {
-        [self.getCodeBtn setTitleColor:[UIColor colorWithHexString:@"#4497F5"] forState:UIControlStateNormal];
+        [self.getCodeBtn setTitleColor:[UIColor colorWithHexString:@"#9471F3"] forState:UIControlStateNormal];
         NSString *title = FORMAT(@"%lds",cuurentCodeExpiry);
         [self.getCodeBtn setTitle:title forState:UIControlStateNormal];
     }

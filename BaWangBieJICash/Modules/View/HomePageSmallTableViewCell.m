@@ -61,7 +61,7 @@
     
     [self.applyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@-16);
-        make.top.equalTo(@22);
+        make.centerY.mas_equalTo(self.nameLab);
     }];
     
     [self.termtitle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,13 +172,13 @@
             make.top.equalTo(iconImg.mas_bottom).offset(8);
         }];
         
-        UILabel *priceLab = [UILabel LabelWithFont:Bold(25) TextColor:@"#333333" Text:@""];
+        UILabel *priceLab = [UILabel LabelWithFont:ShuHeiTi(28) TextColor:@"#333333" Text:@""];
         self.priceLab = priceLab;
         [_cellView addSubview:priceLab];
         [priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(amountLab);
-            make.top.equalTo(amountLab.mas_bottom).offset(8);
-            make.bottom.equalTo(@-14);
+            make.top.equalTo(amountLab.mas_bottom);
+            make.bottom.equalTo(@-8);
         }];
         
         UILabel *termLab = [UILabel LabelWithFont:Regular(12) TextColor:@"#777DA3" Text:@""];
@@ -211,7 +211,7 @@
 - (UILabel *)termLabel
 {
     if (_termLabel == nil) {
-        _termLabel = [UILabel LabelWithFont:Semibold(12) TextColor:@"#4497F5" Text:@""];
+        _termLabel = [UILabel LabelWithFont:Semibold(12) TextColor:@"#9471F3" Text:@""];
     }
     return _termLabel;
 }
@@ -219,7 +219,7 @@
 - (UILabel *)rateLabel
 {
     if (_rateLabel == nil) {
-        _rateLabel = [UILabel LabelWithFont:Semibold(12) TextColor:@"#4497F5" Text:@""];
+        _rateLabel = [UILabel LabelWithFont:Semibold(12) TextColor:@"#9471F3" Text:@""];
     }
     return _rateLabel;
 }

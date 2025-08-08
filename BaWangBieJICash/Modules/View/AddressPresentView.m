@@ -134,7 +134,7 @@
     // 选中状态样式
     if (indexPath.row == self.selectedIndex) {
         cell.selectBtn.hidden = NO;
-        cell.addressTitle.textColor = HEXCOLOR(@"#4497F5");
+        cell.addressTitle.textColor = MAIN_COLOR;
     }else {
         cell.selectBtn.hidden = YES;
         cell.addressTitle.textColor = HEXCOLOR(@"#0A0220");
@@ -205,7 +205,7 @@
 - (AC_BaseButton *)addressTopBtn
 {
     if (_addressTopBtn == nil) {
-        _addressTopBtn = [AC_BaseButton TextBtnWithTitle:@"Select" titleColor:@"#4497F5" font:Semibold(14)];
+        _addressTopBtn = [AC_BaseButton TextBtnWithTitle:@"Select" titleColor:@"#9471F3" font:Semibold(14)];
         [_addressTopBtn addTarget:self action:@selector(addressTopBtnCall) forControlEvents:UIControlEventTouchUpInside];
     }
     return _addressTopBtn;

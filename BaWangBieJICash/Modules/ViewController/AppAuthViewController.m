@@ -14,6 +14,12 @@
 
 @implementation AppAuthViewController
 
+- (void)setUpSubView {
+    [super setUpSubView];
+    
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#F6F6F6"];
+}
+
 - (void)backBtnClick
 {
     for (__kindof UIViewController *subVC in self.navigationController.childViewControllers) {

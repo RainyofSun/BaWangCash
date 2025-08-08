@@ -33,6 +33,7 @@
         make.height.equalTo(@98);
     }];
     
+    self.tableView.showsVerticalScrollIndicator = false;
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [self.tableView registerClass:JobInfoTableViewCell.class forCellReuseIdentifier:JobInfoTableViewCell.className];
     self.tableView.backgroundColor = UIColor.clearColor;

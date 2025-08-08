@@ -72,7 +72,7 @@
 {
     if (_selectView == nil) {
         _selectView = [AC_BaseView new];
-        _selectView.backgroundColor = HEXCOLOR(@"#4497F5");
+        _selectView.backgroundColor = HEXCOLOR(@"#9471F3");
     }
     return _selectView;
 }

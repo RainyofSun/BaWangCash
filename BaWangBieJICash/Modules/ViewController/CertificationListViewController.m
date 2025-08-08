@@ -9,6 +9,7 @@
 #import "CertificationListTableViewCell.h"
 #import "AppAuthTool.h"
 #import "ApplyCashModel.h"
+#import "CertiTopView.h"
 
 @interface CertificationListViewController ()
 
@@ -18,15 +19,8 @@
 
 @property (nonatomic ,strong) UIImageView *bkImg;
 @property (nonatomic ,strong) UIImageView *topImg;
-@property (nonatomic ,strong) UILabel *priceLab;
 
 @property (nonatomic, strong) NSArray <NSDictionary *> *listDatas;
-// List
-@property (nonatomic ,strong) AC_BaseView *whiteView;
-@property (nonatomic, strong) UILabel *loantermLab;
-@property (nonatomic, strong) UILabel *interLab;
-@property (nonatomic, strong) UILabel *daysLab;
-@property (nonatomic, strong) UILabel *dayLab;
 
 @property (nonatomic, strong) UILabel *readLab;
 @property (nonatomic , strong) YYLabel *touchLab;
@@ -36,7 +30,8 @@
 
 @property (nonatomic ,assign) bool isAgree;
 
-@property (nonatomic, strong) UILabel *LoanLab;
+@property (nonatomic, strong) UIImageView *bottomImgView;
+@property (nonatomic, strong) CertiTopView *applyView;
 
 @end
 
@@ -46,9 +41,19 @@
 {
     [super setUpSubView];
     
+    self.navStyle = AC_BaseVC_NAVStyle_Black;
+    self.vcTitleLabel.textColor = HEXCOLOR(@"#333333");
+    [self.backBtn setBackgroundImage:IMAGE(@"login_close") forState:UIControlStateNormal];
     self.title = @"Product Detail";
     
+    self.bottomImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_bottom_bg"]];
+    [self.bkImg addSubview:self.bottomImgView];
     [self.view insertSubview:self.bkImg atIndex:0];
+    
+    [self.bottomImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.bkImg);
+    }];
+    
     [self.bkImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(@0);
     }];
@@ -60,22 +65,15 @@
         make.height.equalTo(@326);
     }];
     
-    [self.topImg addSubview:self.priceLab];
-    [self.priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@200);
-        make.centerX.equalTo(@0);
-        make.height.equalTo(@30);
+    [self.topImg addSubview:self.applyView];
+    [self.applyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.topImg).offset(16);
+        make.right.mas_equalTo(self.topImg).offset(-16);
+        make.top.mas_equalTo(self.topImg).offset(kNavigationBarHeight + 12);
+        make.height.mas_equalTo((kScreenWidth - 32) * 0.54);
     }];
     
-    [self.topImg addSubview:self.whiteView];
-    [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.priceLab.mas_bottom).offset(11);
-        make.height.equalTo(@60);
-        make.left.equalTo(@(kScreenWidth / 375.0 * 46.0));
-        make.right.equalTo(@(kScreenWidth / 375.0 * 30.0 * -1));
-    }];
-    
-    UILabel *certificationLab = [UILabel LabelWithFont:Bold(18) TextColor:@"#FFFFFF" Text:@"Certification process"];
+    UILabel *certificationLab = [UILabel LabelWithFont:Bold(18) TextColor:@"#9471F3" Text:@"Certification process"];
     [self.bkImg addSubview:certificationLab];
     [certificationLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@332);
@@ -178,15 +176,7 @@
     // 底部按钮文案
     NSString *anniu = self.proDetailModel.pc_gore.pc_conflicts;
     [self.loanBtn setTitle:anniu forState:UIControlStateNormal];
-    
-    self.priceLab.text = FORMAT(@"₱%ld",self.proDetailModel.pc_gore.pc_computer);
-    
-    self.loantermLab.text = proDetailModel.pc_gore.pc_far.pc_zappa.pc_beck;
-    self.daysLab.text = proDetailModel.pc_gore.pc_far.pc_zappa.pc_earliest;
-    self.interLab.text = proDetailModel.pc_gore.pc_far.pc_expressed.pc_beck;
-    self.dayLab.text = proDetailModel.pc_gore.pc_far.pc_expressed.pc_earliest;
-    
-    self.LoanLab.text = proDetailModel.pc_gore.pc_thing;
+    self.applyView.detailModel = proDetailModel;
     
     if (proDetailModel.pc_options.pc_beck == nil || [proDetailModel.pc_options.pc_beck isEqualToString:@""]) {
         self.readLab.hidden = YES;
@@ -236,9 +226,9 @@
 {
     _isAgree = isAgree;
     if (isAgree){
-        self.agreeImg.image = IMAGE(@"Credito_Pesos_gouxuan");
+        self.agreeImg.image = IMAGE(@"login_chose_yes");
     }else{
-        self.agreeImg.image = IMAGE(@"login_choose_disable");
+        self.agreeImg.image = IMAGE(@"login_chose_no");
     }
 }
 
@@ -365,81 +355,18 @@
 - (UIImageView *)topImg
 {
     if (_topImg == nil) {
-        _topImg = [[UIImageView alloc]initWithImage:IMAGE(@"ident_topView")];
+        _topImg = [[UIImageView alloc]initWithImage:IMAGE(@"home_small_top")];
         _topImg.userInteractionEnabled = YES;
-        
-        UILabel *LoanLab = [UILabel LabelWithFont:Regular(16) TextColor:@"#5E5E5E" Text:@""];
-        self.LoanLab = LoanLab;
-        [_topImg addSubview:LoanLab];
-        [LoanLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@171);
-            make.centerX.equalTo(@0);
-            make.height.equalTo(@22);
-        }];
     }
     return _topImg;
-}
-
-- (UILabel *)priceLab
-{
-    if (_priceLab == nil) {
-        _priceLab = [UILabel LabelWithFont:Regular(43) TextColor:@"#000000" Text:@""];
-    }
-    return _priceLab;
-}
-
-- (AC_BaseView *)whiteView
-{
-    if (_whiteView == nil) {
-        _whiteView = [AC_BaseView new];
-        _whiteView.backgroundColor = HEXCOLOR(@"#FFFFFF");
-        _whiteView.layer.cornerRadius = 14;
-        [_whiteView makeShadowWithColor:[HEXCOLOR(@"#000000") colorWithAlphaComponent:0.07] opacity:8 radius:0 offset:CGSizeMake(0, 2)];
-        
-        UILabel *loantermLab = [UILabel LabelWithFont:Regular(14) TextColor:@"#727272" Text:@""];
-        self.loantermLab =loantermLab;
-        [_whiteView addSubview:loantermLab];
-        [loantermLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@22);
-            make.top.equalTo(@8);
-            make.height.equalTo(@20);
-        }];
-        UILabel *interLab = [UILabel LabelWithFont:Regular(14) TextColor:@"#727272" Text:@""];
-        self.interLab = interLab;
-        [_whiteView addSubview:interLab];
-        [interLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(@-25);
-            make.top.equalTo(@8);
-            make.height.equalTo(@20);
-        }];
-        
-        UILabel *daysLab = [UILabel LabelWithFont:Semibold(16) TextColor:@"#000000" Text:@""];
-        self.daysLab = daysLab;
-        [_whiteView addSubview:daysLab];
-        [daysLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@21);
-            make.top.equalTo(loantermLab.mas_bottom).offset(2);
-            make.height.equalTo(@22);
-        }];
-        
-        UILabel *dayLab = [UILabel LabelWithFont:Semibold(16) TextColor:@"#000000" Text:@""];
-        self.dayLab = dayLab;
-        [_whiteView addSubview:dayLab];
-        [dayLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(@-22);
-            make.top.equalTo(interLab.mas_bottom).offset(2);
-            make.height.equalTo(@22);
-        }];
-    }
-    return _whiteView;
 }
 
 
 - (AC_BaseButton *)loanBtn
 {
     if (_loanBtn == nil) {
-        _loanBtn = [AC_BaseButton TextBtnWithTitle:@"" titleColor:@"#000000" font:Semibold(18)];
-        _loanBtn.backgroundColor = HEXCOLOR(@"#FED31D");
+        _loanBtn = [AC_BaseButton TextBtnWithTitle:@"" titleColor:@"#FFFFFF" font:Semibold(18)];
+        _loanBtn.backgroundColor = MAIN_COLOR;
         [_loanBtn setCornerRadius:30];
         [_loanBtn addTarget:self action:@selector(loanBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -477,6 +404,13 @@
         _touchLab.textColor = self.readLab.textColor;
     }
     return _touchLab;
+}
+
+- (CertiTopView *)applyView {
+    if (!_applyView) {
+        _applyView = [[CertiTopView alloc] initWithFrame:CGRectZero];
+    }
+    return _applyView;
 }
 
 @end
