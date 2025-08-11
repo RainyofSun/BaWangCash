@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HomeApplyView.h"
+#import "HomeProductView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic ,strong) HomeApplyView *topSubImg;
 @property (nonatomic ,strong) UIImageView *phoneApplyView;
+@property (nonatomic, strong) HomeProductView *productView;
 
 @end
 

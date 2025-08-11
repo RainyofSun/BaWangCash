@@ -16,8 +16,7 @@
     [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@28);
         make.right.equalTo(@-28);
-        make.top.equalTo(@219);
-   
+        make.centerY.equalTo(@0);
     }];
     
     ImgViewWithName(contentbk, @"exit_present_bk");

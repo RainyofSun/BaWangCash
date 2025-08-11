@@ -7,7 +7,6 @@
 
 #import "HomeBigCardView.h"
 #import "HomeApplyGuideView.h"
-#import "HomeProductView.h"
 
 @interface HomeBigCardView ()
 
@@ -38,10 +37,16 @@
             make.height.mas_equalTo((kScreenWidth - 32) * 0.6);
         }];
         
+        [self.topImg addSubview:self.productView];
+        [self.productView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(self.topImg).offset(-70);
+            make.top.mas_equalTo(self.topImg).offset(30);
+        }];
+        
         [self addSubview:self.strengthView];
         [self.strengthView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(@16);
-            make.right.equalTo(@-16);
+            make.width.mas_equalTo(kScreenWidth - 32);
             make.top.mas_equalTo(self.topSubImg.mas_bottom).offset(16);
         }];
         
@@ -82,6 +87,14 @@
         _phoneApplyView  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_bainzu"]];
     }
     return _phoneApplyView;
+}
+
+- (HomeProductView *)productView {
+    if (!_productView) {
+        _productView = [[HomeProductView alloc] initWithFrame:CGRectZero iconSize:CGSizeMake(35, 35)];
+    }
+    
+    return _productView;
 }
 
 @end

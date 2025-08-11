@@ -44,7 +44,6 @@
 - (void)refreshProductTitle:(NSString *)title titleSize:(CGFloat)size {
     self.titleLab.text = title;
     self.titleLab.font = HouDiHei(size);
-    [self.titleLab layoutIfNeeded];
 }
 
 @end

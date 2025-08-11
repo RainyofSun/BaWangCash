@@ -35,7 +35,7 @@
         
         [self addSubview:self.priceLab];
         [self.priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.LoanLab.mas_bottom).offset(15);
+            make.top.equalTo(self.LoanLab.mas_bottom).offset(kScreenHeight >= 812 ? 30 : 20);
             make.centerX.equalTo(@0);
             make.height.equalTo(@40);
         }];
@@ -45,7 +45,8 @@
         [self addSubview:self.lineView];
         
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self);
+            make.centerX.equalTo(self);
+            make.top.mas_equalTo(self.priceLab.mas_bottom).offset(20);
             make.size.mas_equalTo(CGSizeMake(1, 10));
         }];
         
@@ -81,7 +82,7 @@
         
         [self addSubview:self.applyBtn];
         [self.applyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.lineView.mas_bottom).offset(30);
+            make.top.equalTo(self.lineView.mas_bottom).offset(20);
             make.centerX.equalTo(self.lineView);
             make.height.equalTo(@50);
         }];

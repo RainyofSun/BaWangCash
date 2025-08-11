@@ -20,13 +20,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.image = [UIImage imageNamed:@"home_h_bg"];
+        self.userInteractionEnabled = YES;
         
         self.sources = @[@"home_cell_1", @"home_cell_2", @"home_cell_3"];
         
         self.hScrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         self.hScrollView.showsHorizontalScrollIndicator = NO;
-        self.hScrollView.contentSize = CGSizeMake((112 + 8) * self.sources.count + 8, 0);
+        CGSize imgSize = CGSizeMake(112, 158);
         
+        self.hScrollView.contentSize = CGSizeMake((imgSize.width + 8) * self.sources.count + 8, 10);
+        self.hScrollView.showsHorizontalScrollIndicator = NO;
         [self addSubview:self.hScrollView];
         
         if (self.hScrollView.contentSize.width < kScreenWidth - 32) {
@@ -67,9 +70,10 @@
                 [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(self.hScrollView);
                     make.left.mas_equalTo(self.hScrollView).offset(8);
-                    make.size.mas_equalTo(CGSizeMake(112, 158));
+                    make.size.mas_equalTo(imgSize);
                 }];
             }
+
             _tempImageView = imageView;
         }];
     }

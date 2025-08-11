@@ -101,7 +101,8 @@
     if (self.isLargeCard) {
         [self.scrollContentView addSubview:self.largeView];
         [self.largeView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(self.scrollContentView);
+            make.top.mas_equalTo(self.scrollContentView).offset(kScreenHeight >= 812 ? 30 : 0);
+            make.left.right.bottom.mas_equalTo(self.scrollContentView);
         }];
     }else {
         [self.scrollContentView addSubview:self.smallView];
@@ -119,7 +120,7 @@
         self.largeView.topSubImg.termLab.text = consists.pc_godzilla;
         self.largeView.topSubImg.rateLab.text = consists.pc_collection;
         self.productID = consists.pc_consumers;
-        
+        [self.largeView.productView refreshProductTitle:consists.pc_instruct titleSize:23];
         self.largeView.topSubImg.LoanLab.text = consists.pc_megalon;
         [self.largeView.topSubImg.applyBtn refreshApplyButtonTitle:consists.pc_conflicts];
     }
