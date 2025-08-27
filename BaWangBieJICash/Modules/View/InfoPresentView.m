@@ -34,7 +34,7 @@
         make.height.equalTo(@455);
     }];
     
-    ImgViewWithName(contentbk, @"info_comfire_bk");
+    ImgViewWithName(contentbk, @"logoff_bk");
     contentbk.userInteractionEnabled = YES;
     [self.contentView addSubview:contentbk];
     [contentbk mas_makeConstraints:^(MASConstraintMaker *make) {

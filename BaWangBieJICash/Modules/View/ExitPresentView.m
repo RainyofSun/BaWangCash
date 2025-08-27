@@ -19,7 +19,7 @@
         make.centerY.equalTo(@0);
     }];
     
-    ImgViewWithName(contentbk, @"exit_present_bk");
+    ImgViewWithName(contentbk, @"logoff_bk");
     contentbk.userInteractionEnabled = YES;
     [self.contentView addSubview:contentbk];
     [contentbk mas_makeConstraints:^(MASConstraintMaker *make) {

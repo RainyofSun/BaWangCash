@@ -38,7 +38,7 @@
     
     if (self.rightView != nil) {
         CGRect rect = [super editingRectForBounds:bounds];
-        return CGRectMake(8, rect.origin.y, rect.size.width - 8 - 8 - 30, rect.size.height);
+        return CGRectMake(8, rect.origin.y, rect.size.width - 8 - 8 - 50, rect.size.height);
     }
     
     return CGRectInset(bounds, 8, 0);

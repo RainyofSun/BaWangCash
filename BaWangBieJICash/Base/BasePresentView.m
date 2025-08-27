@@ -43,6 +43,11 @@
     }];
 }
 
+- (void)show {
+    [UIViewController.nowWindow endEditing:YES];
+    [super show];
+}
+
 - (void)disMiss
 {
     if (self.didDismissBlock) self.didDismissBlock();

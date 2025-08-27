@@ -30,7 +30,7 @@
     [super setUpSubView];
     
     self.contentView.backgroundColor = UIColor.clearColor;
-    ImgViewWithName(contentbk, @"bankcard_bk");
+    ImgViewWithName(contentbk, @"logoff_bk");
     contentbk.userInteractionEnabled = YES;
     [self.contentView insertSubview:contentbk atIndex:0];
     [contentbk mas_makeConstraints:^(MASConstraintMaker *make) {

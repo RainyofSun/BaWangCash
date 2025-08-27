@@ -20,7 +20,7 @@
    
     }];
     
-    ImgViewWithName(contentbk, @"bankcard_bk");
+    ImgViewWithName(contentbk, @"logoff_bk");
     contentbk.userInteractionEnabled = YES;
     [self.contentView addSubview:contentbk];
     [contentbk mas_makeConstraints:^(MASConstraintMaker *make) {

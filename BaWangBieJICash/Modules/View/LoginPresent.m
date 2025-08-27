@@ -55,6 +55,13 @@
         make.edges.equalTo(@0);
     }];
     
+    [self.codeTextField addSubview:self.getCodeBtn];
+    [self.getCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.codeTextField);
+        make.right.mas_equalTo(self.codeTextField).offset(-8);
+        make.size.mas_equalTo(CGSizeMake(80, 38));
+    }];
+    
     NSString *savePhoneNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"savePhoneNumber"];
     if (savePhoneNumber) {
         self.phoneTextField.text = savePhoneNumber;
@@ -86,9 +93,11 @@
     self.getCodeBtn.enabled = cuurentCodeExpiry <= 0;
     
     if (cuurentCodeExpiry <= 0) {
+        self.getCodeBtn.backgroundColor = MAIN_COLOR;
         [self.getCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.getCodeBtn setTitle:@"Get code" forState:UIControlStateNormal];
     }else {
+        self.getCodeBtn.backgroundColor = [UIColor clearColor];
         [self.getCodeBtn setTitleColor:[UIColor colorWithHexString:@"#9471F3"] forState:UIControlStateNormal];
         NSString *title = FORMAT(@"%lds",cuurentCodeExpiry);
         [self.getCodeBtn setTitle:title forState:UIControlStateNormal];
@@ -333,10 +342,6 @@
         NSDictionary *attr = @{NSFontAttributeName:Regular(16),NSForegroundColorAttributeName:HEXCOLOR(@"#727272")};
         NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:@"Enter verification code" attributes:attr];
         _codeTextField.attributedPlaceholder = attrStr;
-        
-        self.getCodeBtn.frame = CGRectMake(0, 0, 80, 62);
-        _codeTextField.rightView = self.getCodeBtn;
-        _codeTextField.rightViewMode = UITextFieldViewModeAlways;
         
     }
     return _codeTextField;
